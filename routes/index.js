@@ -1,28 +1,29 @@
 const express = require('express');
-const baseModel = require('./test/baseModel');
+const EventModel  = require('../models/EventModel')
 
 var router = express.Router();
 
-/* GET home page. */
-router.get('/test/baseModel/list', async function(req, res, next) {
-  const data = await baseModel.list()
-  res.send(data)
+router.get('/events/list', async function (req, res) {
+    let data = await EventModel .list()
+    data.forEach(o => new EventModel (o))
+    res.send(data)
 });
 
-router.get('/test/baseModel/getById', async function(req, res, next) {
-  if(!req.query.id) throw new Error('Has no ID in query')
-  const data = await baseModel.getById(req.query.id)
-  res.send(data)
+router.get('/events/getById', async function (req, res) {
+    if (!req.query.id) throw new Error('Has no ID in query')
+    const data = await EventModel .getById(req.query.id)
+    data.forEach(o => new EventModel (o))
+    res.send(data)
 });
 
-router.post('/test/baseModel/create', async function(req, res, next) {
-  const data = await baseModel.create(req.body)
-  res.send(data)
+router.post('/events/create', async function (req, res) {
+    const data = await EventModel .create(req.body)
+    res.send(new EventModel (data[0].ID))
 });
 
-router.post('/test/baseModel/update', async function(req, res, next) {
-  const data = await baseModel.update(req.body)
-  res.send(data)
+router.post('/events/update', async function (req, res) {
+    const data = await EventModel .update(req.body)
+    res.send(new EventModel (data[0].ID))
 });
 
 module.exports = router;

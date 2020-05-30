@@ -3,8 +3,8 @@ const db = require('../db')
 
 class BaseModel {
 
-    constructor() {
-        this.ID = undefined
+    constructor(id) {
+        this.ID = id
     }
 
     static get table() {
@@ -37,13 +37,17 @@ class BaseModel {
 
 
     static async list() {
-        let rows = await query(`
-            select * 
-            from "${this.table}"`)
-        if (!rows.length) {
+        let sql = `select * from "${this.table}"`
+        let data
+        try {
+            data = await db.any(sql)
+        } catch (e) {
+            console.log('ERROR:', e);
+        }
+        if (!data.length) {
             throw new Error(`There's no rows in table ${this.table}`)
         }
-        return rows
+        return data
     }
 
 
@@ -74,7 +78,7 @@ class BaseModel {
         let data
         const values = []
         let setString = ``
-        let i =0
+        let i = 0
         for (let [key, value] of Object.entries(obj)) {
             i++;
             setString += `"${key}" = $${i},`
@@ -90,7 +94,7 @@ class BaseModel {
         console.log(sql)
 
         try {
-            data = await db.any(sql,values)
+            data = await db.any(sql, values)
         } catch (e) {
             console.log('ERROR:', e);
         }

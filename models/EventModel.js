@@ -1,11 +1,15 @@
+const BaseModel = require('./BaseModel')
+
 class EventModel extends BaseModel {
-    constructor() {
+    constructor(obj) {
         super()
-        this.history = new this.constructor.History()
+        this.NAME = obj.NAME
+        this.START_DATE = obj.START_DATE
+        this.END_DATE = obj.END_DATE
     }
 
     static get table() {
-        return undefined
+        return "EVENTS"
     }
 
 
