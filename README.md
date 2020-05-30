@@ -9,7 +9,7 @@ npm i
 - Start Postgresql server on 5423 port
 
 Execute SQL code:
-###BASE
+###Table BASE
 ```SQL
 -- Table: public.BASE
 
@@ -28,7 +28,7 @@ TABLESPACE pg_default;
 ALTER TABLE public."BASE"
     OWNER to postgres;
 ```
-###EVENTS:
+###Table EVENTS:
 ```SQL
 -- Table: public.EVENTS
 
@@ -54,4 +54,11 @@ ALTER TABLE public."EVENTS"
 Run application
 ```
 npm start
+```
+###Routes
+```
+GET /events/list
+GET /events/getById?id=1
+POST /events/create
+POST /events/update
 ```
