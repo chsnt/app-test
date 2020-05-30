@@ -12,28 +12,28 @@ class EventModel extends BaseModel {
         return "EVENTS"
     }
 
-    static async create(obj) {
-        let data
-        const fields = Object.keys(obj)
-        const values = fields.map(f => obj[f])
-        const sql = `
-            INSERT INTO "${this.table}" ("${fields.join(', ')}") 
-            VALUES (${values.join(', ')}) 
-            RETURNING "ID";            
-            `
-        console.log(sql)
-
-        try {
-            data = await db.any(sql)
-        } catch (e) {
-            console.log('ERROR:', e);
-        }
-
-        if (!data.length) {
-            throw new Error(`Can't return data`)
-        }
-        return data
-    }
+    // static async create(obj) {
+    //     let data
+    //     const fields = Object.keys(obj)
+    //     const values = fields.map(f => obj[f])
+    //     const sql = `
+    //         INSERT INTO "${this.table}" ("${fields.join(', ')}")
+    //         VALUES (${values.join(', ')})
+    //         RETURNING "ID";
+    //         `
+    //     console.log(sql)
+    //
+    //     try {
+    //         data = await db.any(sql)
+    //     } catch (e) {
+    //         console.log('ERROR:', e);
+    //     }
+    //
+    //     if (!data.length) {
+    //         throw new Error(`Can't return data`)
+    //     }
+    //     return data
+    // }
 
 
 }
