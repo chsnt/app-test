@@ -1,5 +1,6 @@
 # app-test
-
+Test Postgresql application
+- Install dependencies:
 ```
 npm i
 ```
