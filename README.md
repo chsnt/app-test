@@ -4,12 +4,12 @@
 npm i
 ```
 
-##DB:
+## DB:
 - Install Postgresql 10.13
 - Start Postgresql server on 5423 port
 
 Execute SQL code:
-###Table BASE
+### Table BASE
 ```SQL
 -- Table: public.BASE
 
@@ -28,7 +28,7 @@ TABLESPACE pg_default;
 ALTER TABLE public."BASE"
     OWNER to postgres;
 ```
-###Table EVENTS:
+### Table EVENTS:
 ```SQL
 -- Table: public.EVENTS
 
@@ -55,7 +55,7 @@ Run application
 ```
 npm start
 ```
-###Routes
+### Routes
 ```
 GET /events/list
 GET /events/getById?id=1
