@@ -22,7 +22,6 @@ class BaseModel {
             from "${this.table}" 
             where "ID"=${id}`
 
-
         try {
             data = await db.any(sql)
 
@@ -49,18 +48,57 @@ class BaseModel {
 
 
     static async create(obj) {
-        // obj = { "ID":10 }
+        let data
         const fields = Object.keys(obj)
         const values = fields.map(f => obj[f])
         const sql = `
-            INSERT * INTO "${this.table}" (${fields.join(', ')}) 
-            VALUES (${values.join(', ')});            
+            INSERT INTO "${this.table}" ("${fields.join(', ')}") 
+            VALUES (${values.join(', ')}) 
+            RETURNING "ID";            
             `
-        let rows = await query(sql)
-        // if (!rows.length) {
-        //     throw new Error(`Cant create & insert into table ${this.table}`)
-        // }
-        return rows
+        console.log(sql)
+
+        try {
+            data = await db.any(sql)
+        } catch (e) {
+            console.log('ERROR:', e);
+        }
+
+        if (!data.length) {
+            throw new Error(`Can't return data`)
+        }
+        return data
+    }
+
+    static async update(obj) {
+        let data
+        const values = []
+        let setString = ``
+        let i =0
+        for (let [key, value] of Object.entries(obj)) {
+            i++;
+            setString += `"${key}" = $${i},`
+            values.push(value)
+        }
+        setString = setString.slice(0, -1)
+        const sql = `
+            UPDATE "${this.table}" 
+            SET ${setString}
+            WHERE "ID" = ${obj.ID}
+            RETURNING "ID";            
+            `
+        console.log(sql)
+
+        try {
+            data = await db.any(sql,values)
+        } catch (e) {
+            console.log('ERROR:', e);
+        }
+
+        if (!data.length) {
+            throw new Error(`Can't return data`)
+        }
+        return data
     }
 
 

@@ -15,15 +15,13 @@ const cn = {
 };
 const db = pgp(cn); // database instance;
 
-const query = async (sql, values, cb) => {
-    try {
-        const data = await db.any(sql)
-        return data
-    } catch (e) {
-        console.log('ERROR:', e);
-    } finally {
-        db.$pool.end()
-    }
-}
+// const query = async (sql, values, cb) => {
+//     try {
+//         const data = await db.any(sql)
+//         return data
+//     } catch (e) {
+//         console.log('ERROR:', e);
+//     }
+// }
 
 module.exports = db

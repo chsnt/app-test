@@ -20,4 +20,9 @@ router.post('/test/baseModel/create', async function(req, res, next) {
   res.send(data)
 });
 
+router.post('/test/baseModel/update', async function(req, res, next) {
+  const data = await baseModel.update(req.body)
+  res.send(data)
+});
+
 module.exports = router;

@@ -13,4 +13,8 @@ module.exports =  {
         const res = await BaseModel.create(obj)
         return res
     },
+    update:async (obj)=> {
+        const res = await BaseModel.update(obj)
+        return res
+    },
 }
