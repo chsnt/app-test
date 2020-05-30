@@ -63,3 +63,11 @@ GET /events/getById?id=1
 POST /events/create
 POST /events/update
 ```
+
+### Test routes
+```
+GET /test/baseModel/list
+GET /test/baseModel/getById?id=1
+POST /test/baseModel/create
+POST /test/baseModel/update
+```
