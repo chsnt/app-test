@@ -41,12 +41,13 @@ class BaseModel {
         let data
         try {
             data = await db.any(sql)
+            if (!data.length) {
+                throw new Error(`There's no rows in table ${this.table}`)
+            }
         } catch (e) {
             console.log('ERROR:', e);
         }
-        if (!data.length) {
-            throw new Error(`There's no rows in table ${this.table}`)
-        }
+
         return data
     }
 
@@ -64,13 +65,14 @@ class BaseModel {
 
         try {
             data = await db.any(sql)
+            if (!data.length) {
+                throw new Error(`Can't return data`)
+            }
         } catch (e) {
             console.log('ERROR:', e);
         }
 
-        if (!data.length) {
-            throw new Error(`Can't return data`)
-        }
+
         return data
     }
 
@@ -95,13 +97,14 @@ class BaseModel {
 
         try {
             data = await db.any(sql, values)
+            if (!data.length) {
+                throw new Error(`Can't return data`)
+            }
         } catch (e) {
             console.log('ERROR:', e);
         }
 
-        if (!data.length) {
-            throw new Error(`Can't return data`)
-        }
+
         return data
     }
 
