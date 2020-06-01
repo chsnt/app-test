@@ -3,12 +3,20 @@ const db = require('../db')
 
 class BaseModel {
 
-    constructor(id) {
-        this.ID = id
+    constructor(obj) {
+        this.ID = obj.ID
     }
 
     static get table() {
         return 'BASE'
+    }
+
+    static get columns() {
+        return {
+            ID: {
+                type: "NUMBER",
+            },
+        }
     }
 
     /**
@@ -72,11 +80,11 @@ class BaseModel {
             console.log('ERROR:', e);
         }
 
-
         return data
     }
 
     static async update(obj) {
+        if(!obj.ID) throw new Error(`Need ID`)
         let data
         const values = []
         let setString = ``
@@ -103,7 +111,6 @@ class BaseModel {
         } catch (e) {
             console.log('ERROR:', e);
         }
-
 
         return data
     }

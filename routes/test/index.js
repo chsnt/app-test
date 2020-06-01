@@ -18,12 +18,12 @@ router.get('/baseModel/getById', async function (req, res) {
 
 router.post('/baseModel/create', async function (req, res) {
     const data = await BaseModel.create(req.body)
-    res.send(new BaseModel(data[0].ID))
+    res.send(new BaseModel(data[0]))
 });
 
 router.post('/baseModel/update', async function (req, res) {
     const data = await BaseModel.update(req.body)
-    res.send(new BaseModel(data[0].ID))
+    res.send(new BaseModel(data[0]))
 });
 
 module.exports = router;
